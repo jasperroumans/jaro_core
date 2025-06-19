@@ -1,0 +1,35 @@
+{
+  "status": "ACTIEF",
+  "actieve_modules": [
+    "calendar_module",
+    "email_module",
+    "notities_module",
+    "files_module",
+    "habit_tracker_module"
+  ],
+  "taal": "Nederlands",
+  "toon": "rustig, vriendelijk, doelgericht",
+  "toegestane_koppelingen": {
+    "gmail": true,
+    "onedrive": true,
+    "notion": false,
+    "slack": false
+  },
+  "voice_interface": false,
+  "logging": {
+    "enabled": true,
+    "niveau": "compact",
+    "bestand": "activity_log.json"
+  },
+  "automatiseringsregels": [
+    {
+      "trigger": "08:00",
+      "actie": "calendar_module.dagstart()"
+    },
+    {
+      "trigger": "bestand_toegevoegd",
+      "actie": "files_module.auto_sort()"
+    }
+  ],
+  "laatst_bijgewerkt": "2025-06-18T22:00:00+02:00"
+}
