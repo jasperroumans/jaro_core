@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import pytest
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -18,22 +19,23 @@ def _setup_logging():
         os.remove(TEST_LOG_FILE)
 
 
-def test_init_agent():
-    """Initialiseer JaroLinkAgent en toon profielinformatie."""
+@pytest.fixture(name="agent")
+def _agent_fixture():
+    """Maak een agent aan met testlogging."""
+    _setup_logging()
     start = time.perf_counter()
-    try:
-        agent = jaro_link_agent.JaroLinkAgent()
-    except Exception as exc:
-        duration = time.perf_counter() - start
-        print(f"Fout bij initialisatie: {exc}")
-        print(f"Laadtijd: {duration:.2f}s")
-        return None
+    agent = jaro_link_agent.JaroLinkAgent()
     duration = time.perf_counter() - start
     active = agent.profile.get("actieve_modules", agent.profile.get("modules", []))
     print(f"Profielstatus: {agent.status}")
     print(f"Aantal actieve modules: {len(active)}")
     print(f"Laadtijd: {duration:.2f}s")
     return agent
+
+
+def test_init_agent(agent):
+    """Controleer dat de agent correct initialiseert."""
+    assert isinstance(agent, jaro_link_agent.JaroLinkAgent)
 
 
 def test_module_activation(agent):
@@ -45,20 +47,10 @@ def test_module_activation(agent):
         duration = time.perf_counter() - start
         print(f"Fout tijdens run: {exc}")
         print(f"Laadtijd: {duration:.2f}s")
-        return False
+        pytest.fail("Run mislukt")
     duration = time.perf_counter() - start
     print(f"Aantal geladen modules: {len(agent.modules)}")
     print(f"Laadtijd: {duration:.2f}s")
     print("Test succesvol uitgevoerd")
-    return True
+    assert True
 
-
-def main():
-    _setup_logging()
-    agent = test_init_agent()
-    if agent:
-        test_module_activation(agent)
-
-
-if __name__ == "__main__":
-    main()
