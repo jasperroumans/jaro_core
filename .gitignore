@@ -192,3 +192,16 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+# VSCode settings
+.vscode/
+
+# macOS systeembestanden
+.DS_Store
+
+# Test output
+/tests/agent_test_log.json
+
+# Logboek kopieën of back-ups (optioneel)
+*.bak
+*.log
+/backups/
