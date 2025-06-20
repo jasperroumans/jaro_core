@@ -12,8 +12,13 @@ auto_sort(doelmap="data")
 
 from __future__ import annotations
 
+import json
 import os
 import shutil
+from datetime import datetime
+
+REPO_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+LOG_FILE = os.path.join(REPO_DIR, "core", "activity_log.json")
 
 
 def start() -> None:
@@ -46,6 +51,24 @@ def _icon_for(ext: str) -> str:
     return icons.get(_bepaal_submap(ext), "\U0001F4C1")
 
 
+def _log_activiteit(boodschap: str) -> None:
+    """Schrijf een logbericht naar ``activity_log.json``."""
+    entry = {
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "message": boodschap,
+    }
+    logs = []
+    if os.path.exists(LOG_FILE):
+        try:
+            with open(LOG_FILE, "r", encoding="utf-8") as f:
+                logs = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            logs = []
+    logs.append(entry)
+    with open(LOG_FILE, "w", encoding="utf-8") as f:
+        json.dump(logs, f, ensure_ascii=False, indent=2)
+
+
 def auto_sort(doelmap: str = "data") -> None:
     """Sorteer bestanden in ``doelmap`` naar submappen op basis van extensie.
 
@@ -55,13 +78,14 @@ def auto_sort(doelmap: str = "data") -> None:
         De naam van de map binnen het project waarin gezocht wordt. Standaard
         ``"data"``.
     """
-    repo_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+    repo_dir = REPO_DIR
     data_dir = os.path.join(repo_dir, doelmap)
 
     if not os.path.isdir(data_dir):
         print(f"Map '{data_dir}' bestaat niet")
         return
 
+    moved = 0
     for naam in os.listdir(data_dir):
         pad = os.path.join(data_dir, naam)
         if os.path.isdir(pad):
@@ -75,8 +99,14 @@ def auto_sort(doelmap: str = "data") -> None:
         try:
             shutil.move(pad, dest)
             status = "verplaatst"
+            moved += 1
         except (OSError, shutil.Error) as exc:
             status = f"overgeslagen ({exc})"
         rel_dest = os.path.relpath(dest, repo_dir)
         print(f"{icoon} {naam} → {rel_dest} ({status})")
+
+    boodschap = f"auto_sort uitgevoerd: {moved} bestanden verplaatst"
+    _log_activiteit(boodschap)
+    print(boodschap)
+
 
