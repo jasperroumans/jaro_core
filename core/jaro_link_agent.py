@@ -1,6 +1,7 @@
 import json
 import importlib
 import os
+import sys
 from datetime import datetime
 
 # Constants for status labels in Dutch
@@ -8,8 +9,10 @@ STATUS_ON = "AAN"
 STATUS_OFF = "UIT"
 STATUS_ACTIVE = "ACTIEF"
 
-USER_CONFIG_FILE = "user_config.json"
-LOG_FILE = "activity_log.json"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+USER_CONFIG_FILE = os.path.join(BASE_DIR, "user_config.json")
+LOG_FILE = os.path.join(BASE_DIR, "activity_log.json")
+MODULES_DIR = os.path.join(BASE_DIR, "..", "modules")
 
 class JaroLinkAgent:
     """Kernscript van de AI-agent."""
@@ -50,7 +53,9 @@ class JaroLinkAgent:
             json.dump(logs, f, indent=2)
 
     def register_module(self, module_name):
-        """Registreer een module via een (dummy) import."""
+        """Registreer een module vanuit de modules-directory."""
+        if MODULES_DIR not in sys.path:
+            sys.path.insert(0, MODULES_DIR)
         try:
             module = importlib.import_module(module_name)
             self.modules.append(module)
