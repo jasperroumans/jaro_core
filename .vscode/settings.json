@@ -1,0 +1,10 @@
+{
+  "python.analysis.extraPaths": ["./core", "./modules", "./interface"],
+  "editor.formatOnSave": true,
+  "python.linting.enabled": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.DS_Store": true,
+    ".vscode/": false
+  }
+}
