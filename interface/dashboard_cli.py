@@ -14,6 +14,7 @@ sys.path.insert(0, REPO_DIR)
 
 from core.backup_config import backup_user_config
 from core.rollback_module import restore_user_config
+from modules.files_module import auto_sort
 
 
 CORE_DIR = os.path.join(REPO_DIR, "core")
@@ -63,6 +64,7 @@ def _show_dashboard() -> tuple[list[dict], dict]:
     print("[1] Toon logboek")
     print("[2] Maak backup")
     print("[3] Rollback uitvoeren")
+    print("[4] Sorteer bestanden (auto_sort)")
     print("[q] Afsluiten")
 
     return logs, config
@@ -89,6 +91,9 @@ def main() -> None:
             input("Druk op Enter om verder te gaan...")
         elif keuze == "3":
             restore_user_config()
+            input("Druk op Enter om verder te gaan...")
+        elif keuze == "4":
+            auto_sort()
             input("Druk op Enter om verder te gaan...")
         elif keuze == "q":
             break
