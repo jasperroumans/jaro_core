@@ -6,8 +6,11 @@ import json
 import os
 from datetime import datetime
 
-USER_CONFIG_FILE = "user_config.json"
-LOG_FILE = "activity_log.json"
+BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "core")
+USER_CONFIG_FILE = os.path.join(BASE_DIR, "user_config.json")
+LOG_FILE = os.path.join(BASE_DIR, "activity_log.json")
+MODULES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "modules")
+
 
 
 def _log(message: str) -> None:
@@ -50,8 +53,8 @@ def _save_config(config: dict) -> None:
 
 
 def _detect_modules() -> list[str]:
-    """Zoek beschikbare *_module.py bestanden in de huidige map."""
-    mods = [f[:-3] for f in os.listdir(".") if f.endswith("_module.py")]
+    """Zoek beschikbare *_module.py bestanden in de modules map."""
+    mods = [f[:-3] for f in os.listdir(MODULES_DIR) if f.endswith("_module.py")]
     return mods
 
 
