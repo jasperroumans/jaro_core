@@ -37,7 +37,8 @@ def send_email(ontvanger: str, onderwerp: str, bericht: str) -> None:
 
 def run(context: str = "werk") -> None:
     """Simuleer contextbewuste e-mailafhandeling."""
-    print(f"[{context.upper()}] email_module gestart.")
+    label = "WERK" if context == "werk" else "PRIVÉ" if context == "privé" else "ONBEKEND"
+    print(f"[{label}] Email gestart")
 
     if context == "werk":
         print("\u25B6 Simuleer werkinhoud voor email_module...")
