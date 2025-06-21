@@ -60,7 +60,8 @@ def log_habit(gewoonte: str, status: str, opmerking: str = "") -> Dict[str, str]
 
 def run(context: str = "werk") -> None:
     """Simuleer habit-tracker-acties afhankelijk van de context."""
-    print(f"[{context.upper()}] habit_tracker_module gestart.")
+    label = "WERK" if context == "werk" else "PRIVÉ" if context == "privé" else "ONBEKEND"
+    print(f"[{label}] Habit Tracker gestart")
 
     if context == "werk":
         print("\u25B6 Simuleer werkinhoud voor habit_tracker_module...")

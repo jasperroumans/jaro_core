@@ -12,7 +12,8 @@ def start() -> None:
 
 def run(context: str = "werk") -> None:
     """Simuleer braindump functionaliteit afhankelijk van de context."""
-    print(f"[{context.upper()}] braindump_module gestart.")
+    label = "WERK" if context == "werk" else "PRIVÉ" if context == "privé" else "ONBEKEND"
+    print(f"[{label}] Braindump gestart")
 
     if context == "werk":
         print("\u25B6 Simuleer werkinhoud voor braindump_module...")
