@@ -12,7 +12,8 @@ def start() -> None:
 
 def run(context: str = "werk") -> None:
     """Simuleer highlight-functionaliteit op basis van de context."""
-    print(f"[{context.upper()}] highlight_module gestart.")
+    label = "WERK" if context == "werk" else "PRIVÉ" if context == "privé" else "ONBEKEND"
+    print(f"[{label}] Highlight gestart")
 
     if context == "werk":
         print("\u25B6 Simuleer werkinhoud voor highlight_module...")

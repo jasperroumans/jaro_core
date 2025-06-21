@@ -2,6 +2,7 @@ import json
 import importlib
 import os
 import sys
+import subprocess
 from datetime import datetime
 
 # Constants for status labels in Dutch
@@ -173,7 +174,13 @@ if __name__ == "__main__":
     agent = JaroLinkAgent()
     if len(sys.argv) >= 2:
         cmd = sys.argv[1]
-        if cmd == "switch_context" and len(sys.argv) >= 3:
+        if cmd == "--simulate":
+            sim_script = os.path.join(BASE_DIR, "..", "tests", "simulate_context_behavior.py")
+            try:
+                subprocess.run([sys.executable, sim_script], check=False)
+            except Exception as exc:
+                print(f"Kon simulatie niet uitvoeren: {exc}")
+        elif cmd == "switch_context" and len(sys.argv) >= 3:
             agent.switch_context(sys.argv[2])
         elif cmd == "revert_context":
             agent.revert_context()

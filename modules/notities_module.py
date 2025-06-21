@@ -12,7 +12,8 @@ def start() -> None:
 
 def run(context: str = "werk") -> None:
     """Toon gesimuleerde notities afhankelijk van de context."""
-    print(f"[{context.upper()}] notities_module gestart.")
+    label = "WERK" if context == "werk" else "PRIVÉ" if context == "privé" else "ONBEKEND"
+    print(f"[{label}] Notities gestart")
 
     if context == "werk":
         print("\u25B6 Simuleer werkinhoud voor notities_module...")
