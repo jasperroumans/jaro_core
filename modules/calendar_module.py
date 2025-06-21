@@ -25,9 +25,12 @@ def dagstart():
 
 
 def run(context: str = "werk") -> None:
-    """Voer de kalenderfunctionaliteit uit gebaseerd op de context."""
-    start()
+    """Voer de kalenderfunctionaliteit contextbewust uit."""
+    print(f"[{context.upper()}] calendar_module gestart.")
+
     if context == "werk":
-        print("\U0001F4C6 Toon werkplanning")
+        print("\u25B6 Simuleer werkinhoud voor calendar_module...")
+    elif context == "privé":
+        print("\u25C0 Simuleer privé-inhoud voor calendar_module...")
     else:
-        print("\U0001F3E0 Toon privéplanning")
+        print("\u26A0 Onbekende context – toon alles.")

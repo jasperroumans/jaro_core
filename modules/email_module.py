@@ -36,9 +36,12 @@ def send_email(ontvanger: str, onderwerp: str, bericht: str) -> None:
 
 
 def run(context: str = "werk") -> None:
-    """Start de e-mailfunctionaliteit en toon de juiste inbox."""
-    start()
+    """Simuleer contextbewuste e-mailafhandeling."""
+    print(f"[{context.upper()}] email_module gestart.")
+
     if context == "werk":
-        print("\U0001F4E5 Werkinbox geopend")
+        print("\u25B6 Simuleer werkinhoud voor email_module...")
+    elif context == "privé":
+        print("\u25C0 Simuleer privé-inhoud voor email_module...")
     else:
-        print("\U0001F4EC Privéinbox geopend")
+        print("\u26A0 Onbekende context – toon alles.")
