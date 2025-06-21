@@ -33,3 +33,12 @@ def send_email(ontvanger: str, onderwerp: str, bericht: str) -> None:
     """
     print(f"\u2709\ufe0f Simulatie: E-mail verzonden naar {ontvanger} met onderwerp: '{onderwerp}'")
     print(f"Inhoud:\n{bericht}")
+
+
+def run(context: str = "werk") -> None:
+    """Start de e-mailfunctionaliteit en toon de juiste inbox."""
+    start()
+    if context == "werk":
+        print("\U0001F4E5 Werkinbox geopend")
+    else:
+        print("\U0001F4EC Privéinbox geopend")

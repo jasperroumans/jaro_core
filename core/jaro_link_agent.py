@@ -95,6 +95,43 @@ class JaroLinkAgent:
                 except Exception as exc:
                     self._log(f"Fout bij starten van {module.__name__}: {exc}")
 
+    def _activate_modules(self):
+        """Laad alle modules uit de modules-map en voer ze uit."""
+        module_names = [
+            "calendar_module",
+            "email_module",
+            "habit_tracker_module",
+            "notities_module",
+            "braindump_module",
+            "highlight_module",
+            "files_module",
+        ]
+
+        self.modules = []
+        if MODULES_DIR not in sys.path:
+            sys.path.insert(0, MODULES_DIR)
+
+        for mod_name in module_names:
+            try:
+                module = importlib.import_module(mod_name)
+                self.modules.append(module)
+                self._log(f"Module {mod_name} geactiveerd")
+            except ImportError:
+                self._log(f"Module {mod_name} niet gevonden")
+                continue
+
+            run_fn = getattr(module, "run", None)
+            if callable(run_fn):
+                try:
+                    self._log(
+                        f"Voer {mod_name}.run() uit met context {self.context_mode}"
+                    )
+                    run_fn(context=self.context_mode)
+                except Exception as exc:
+                    self._log(f"Fout bij uitvoeren van {mod_name}: {exc}")
+            else:
+                self._log(f"run() ontbreekt in {mod_name}")
+
     def switch_context(self, new_context: str) -> None:
         """Wijzig de context en sla dit op."""
         if new_context not in {"werk", "privé"}:
@@ -129,21 +166,7 @@ class JaroLinkAgent:
             self._log("Agent staat niet op AAN en wordt gestopt")
             return
         self._log("Agent gestart")
-        context_modules = {
-            "werk": [
-                "calendar_module",
-                "email_module",
-                "habit_tracker_module",
-            ],
-            "privé": ["notities_module", "braindump_module", "highlight_module"],
-        }
-        for mod_name in context_modules.get(self.context_mode, []):
-            if os.path.exists(os.path.join(MODULES_DIR, f"{mod_name}.py")):
-                self.register_module(mod_name)
-            else:
-                print(f"Simuleer starten van {mod_name}")
-                self._log(f"Module {mod_name} gesimuleerd")
-        self.start_modules()
+        self._activate_modules()
         self._log("Agent klaar")
 
 if __name__ == "__main__":
