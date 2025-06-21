@@ -11,7 +11,13 @@ def start() -> None:
 
 
 def run(context: str = "werk") -> None:
-    """Toon notities gefilterd op basis van de huidige context."""
-    start()
-    print(f"\U0001F4D1 Filter notities voor context: {context}")
+    """Toon gesimuleerde notities afhankelijk van de context."""
+    print(f"[{context.upper()}] notities_module gestart.")
+
+    if context == "werk":
+        print("\u25B6 Simuleer werkinhoud voor notities_module...")
+    elif context == "privé":
+        print("\u25C0 Simuleer privé-inhoud voor notities_module...")
+    else:
+        print("\u26A0 Onbekende context – toon alles.")
 

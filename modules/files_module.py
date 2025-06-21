@@ -110,3 +110,13 @@ def auto_sort(doelmap: str = "data") -> None:
     print(boodschap)
 
 
+def run(context: str = "werk") -> None:
+    """Simuleer bestandsbeheer voor beide contexten."""
+    print(f"[{context.upper()}] files_module gestart.")
+
+    if context in {"werk", "privé"}:
+        print("\u25B6 Simuleer bestandsbeheer in files_module...")
+    else:
+        print("\u26A0 Onbekende context – toon alles.")
+
+
