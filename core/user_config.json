@@ -21,6 +21,8 @@
     "niveau": "compact",
     "bestand": "activity_log.json"
   },
+  "context_mode": "werk",
+  "previous_context": "privé",
   "automatiseringsregels": [
     {
       "trigger": "08:00",
