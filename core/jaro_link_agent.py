@@ -21,6 +21,8 @@ class JaroLinkAgent:
         self.status = STATUS_OFF
         self.profile = {}
         self.modules = []
+        self.context_mode = "werk"
+        self.previous_context = "werk"
         self._load_profile()
 
     def _load_profile(self):
@@ -30,6 +32,17 @@ class JaroLinkAgent:
                 try:
                     self.profile = json.load(f)
                     self.status = self.profile.get("status", STATUS_OFF)
+                    self.context_mode = self.profile.get("context_mode", "werk")
+                    self.previous_context = self.profile.get(
+                        "previous_context", self.context_mode
+                    )
+                    if "context_mode" not in self.profile:
+                        print(
+                            "Waarschuwing: context_mode ontbreekt in configuratie. Gebruik 'werk'."
+                        )
+                        self.profile["context_mode"] = self.context_mode
+                        self.profile["previous_context"] = self.previous_context
+                        self._save_profile()
                 except json.JSONDecodeError:
                     self._log("Fout bij het lezen van user_config.json")
         else:
@@ -51,6 +64,14 @@ class JaroLinkAgent:
         logs.append(entry)
         with open(LOG_FILE, "w", encoding="utf-8") as f:
             json.dump(logs, f, indent=2)
+
+    def _save_profile(self):
+        """Schrijf de huidige profieldata weg naar user_config.json."""
+        self.profile["status"] = self.status
+        self.profile["context_mode"] = self.context_mode
+        self.profile["previous_context"] = self.previous_context
+        with open(USER_CONFIG_FILE, "w", encoding="utf-8") as f:
+            json.dump(self.profile, f, indent=2, ensure_ascii=False)
 
     def register_module(self, module_name):
         """Registreer een module vanuit de modules-directory."""
@@ -74,17 +95,66 @@ class JaroLinkAgent:
                 except Exception as exc:
                     self._log(f"Fout bij starten van {module.__name__}: {exc}")
 
+    def switch_context(self, new_context: str) -> None:
+        """Wijzig de context en sla dit op."""
+        if new_context not in {"werk", "privé"}:
+            print("Ongeldige context. Kies 'werk' of 'privé'.")
+            return
+        if new_context == self.context_mode:
+            print(f"Context is al '{new_context}'.")
+            return
+        self.previous_context = self.context_mode
+        self.context_mode = new_context
+        self._save_profile()
+        self._log(f"Context gewijzigd naar {new_context}")
+        print(f"Context gewijzigd naar {new_context}")
+
+    def revert_context(self) -> None:
+        """Zet de context terug naar de vorige."""
+        if self.previous_context == self.context_mode:
+            print("Geen vorige context beschikbaar om naar terug te keren.")
+            return
+        self.context_mode, self.previous_context = (
+            self.previous_context,
+            self.context_mode,
+        )
+        self._save_profile()
+        self._log(f"Context teruggezet naar {self.context_mode}")
+        print(f"Context teruggezet naar {self.context_mode}")
+
     def run(self):
         """Start de agent alleen wanneer status AAN is."""
+        print(f"Actieve context: {self.context_mode}")
         if self.status != STATUS_ON:
             self._log("Agent staat niet op AAN en wordt gestopt")
             return
         self._log("Agent gestart")
-        for mod_name in self.profile.get("modules", []):
-            self.register_module(mod_name)
+        context_modules = {
+            "werk": [
+                "calendar_module",
+                "email_module",
+                "habit_tracker_module",
+            ],
+            "privé": ["notities_module", "braindump_module", "highlight_module"],
+        }
+        for mod_name in context_modules.get(self.context_mode, []):
+            if os.path.exists(os.path.join(MODULES_DIR, f"{mod_name}.py")):
+                self.register_module(mod_name)
+            else:
+                print(f"Simuleer starten van {mod_name}")
+                self._log(f"Module {mod_name} gesimuleerd")
         self.start_modules()
         self._log("Agent klaar")
 
 if __name__ == "__main__":
     agent = JaroLinkAgent()
-    agent.run()
+    if len(sys.argv) >= 2:
+        cmd = sys.argv[1]
+        if cmd == "switch_context" and len(sys.argv) >= 3:
+            agent.switch_context(sys.argv[2])
+        elif cmd == "revert_context":
+            agent.revert_context()
+        else:
+            print("Onbekend commando")
+    else:
+        agent.run()
