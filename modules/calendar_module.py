@@ -22,3 +22,12 @@ def start():
 def dagstart():
     """Trigger daily planning startup."""
     print("\U0001F31E Dagplanning geladen: klaar om te starten")
+
+
+def run(context: str = "werk") -> None:
+    """Voer de kalenderfunctionaliteit uit gebaseerd op de context."""
+    start()
+    if context == "werk":
+        print("\U0001F4C6 Toon werkplanning")
+    else:
+        print("\U0001F3E0 Toon privéplanning")
