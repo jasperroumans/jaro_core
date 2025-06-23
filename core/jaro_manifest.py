@@ -2,8 +2,9 @@ import json
 import os
 from datetime import datetime
 
-MANIFEST_PATH = os.path.join(os.path.dirname(__file__), "config", "jaro_visie.json")
-LOG_DIR = os.path.join(os.path.dirname(__file__), "logs")
+BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+MANIFEST_PATH = os.path.join(BASE_DIR, "config", "jaro_visie.json")
+LOG_DIR = os.path.join(BASE_DIR, "logs")
 LOG_FILE = os.path.join(LOG_DIR, "manifest_log.json")
 
 MANIFEST_DATA = None
