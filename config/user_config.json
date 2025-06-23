@@ -1,0 +1,9 @@
+{
+  "gebruikersnaam": "jasper",
+  "taal": "nl",
+  "toon": "rustig",
+  "modules": ["calendar", "notities", "files"],
+  "active_context": "werk",
+  "stem": false,
+  "reflectie": true
+}
