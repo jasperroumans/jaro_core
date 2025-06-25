@@ -1,0 +1,29 @@
+{
+  "jasper": {
+    "gebruikersnaam": "jasper",
+    "taal": "nl",
+    "toon": "rustig",
+    "modules": ["calendar", "notities", "files"],
+    "active_context": "werk",
+    "stem": false,
+    "reflectie": true
+  },
+  "stefan": {
+    "gebruikersnaam": "stefan",
+    "taal": "nl",
+    "toon": "professioneel",
+    "modules": ["email", "calendar"],
+    "active_context": "werk",
+    "stem": false,
+    "reflectie": false
+  },
+  "test_user": {
+    "gebruikersnaam": "test_user",
+    "taal": "en",
+    "toon": "informal",
+    "modules": [],
+    "active_context": "test",
+    "stem": false,
+    "reflectie": false
+  }
+}
