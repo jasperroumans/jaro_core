@@ -93,11 +93,10 @@ def is_user_enabled(key: str) -> bool:
     return _search_key(USER_CONFIG_DATA, key)
 
 
-def reload_user_config() -> dict:
-    """Herlaad de configuratie van schijf en ververs de globale versie."""
+def reload_user_config() -> None:
+    """Herlaad de configuratie van schijf."""
     global USER_CONFIG_DATA
-    USER_CONFIG_DATA = None
-    return load_user_config()
+    USER_CONFIG_DATA = load_user_config()
 
 
 def profile_info() -> None:
