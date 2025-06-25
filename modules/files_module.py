@@ -10,12 +10,22 @@ auto_sort(doelmap="data")
     Sorteer bestanden naar submappen op basis van extensie.
 """
 
-from __future__ import annotations
-
-import json
-import os
-import shutil
+from core.jaro_manifest import get_manifest_value, is_allowed_to
+from core.user_config import get_user_value, is_user_enabled
 from datetime import datetime
+import os
+import logging
+import json
+import shutil
+
+__all__ = []
+
+logger = logging.getLogger(__name__)
+
+MANIFEST_DATA = get_manifest_value("contextual_info") or {}
+VISION = get_manifest_value("jaro_vision") or {}
+USER_PREFERENCES = get_user_value("personal_preferences") or {}
+USER_ACTIVE = is_user_enabled("pc_on") if not os.environ.get("JARO_OVERRIDE") else True
 
 REPO_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LOG_FILE = os.path.join(REPO_DIR, "core", "activity_log.json")
@@ -23,6 +33,7 @@ LOG_FILE = os.path.join(REPO_DIR, "core", "activity_log.json")
 
 def start() -> None:
     """Initialiseer de bestandsmodule."""
+    logger.debug("Files module start() called")
     print("\U0001F5C2 Bestandsmodule gestart")
 
 
@@ -106,12 +117,19 @@ def auto_sort(doelmap: str = "data") -> None:
         print(f"{icoon} {naam} → {rel_dest} ({status})")
 
     boodschap = f"auto_sort uitgevoerd: {moved} bestanden verplaatst"
+    logger.debug(boodschap)
     _log_activiteit(boodschap)
     print(boodschap)
 
 
 def run(context: str = "werk") -> None:
     """Simuleer bestandsbeheer voor beide contexten."""
+    if not USER_ACTIVE:
+        logger.debug("Gebruiker niet actief; files wordt niet uitgevoerd")
+        return
+
+    context = context or USER_PREFERENCES.get("active_context", "werk")
+    logger.debug("Files module run() with context: %s", context)
     label = "WERK" if context == "werk" else "PRIVÉ" if context == "privé" else "ONBEKEND"
     print(f"[{label}] Bestanden gestart")
 
