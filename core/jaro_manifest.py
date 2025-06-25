@@ -109,3 +109,9 @@ def save_manifest(data: dict) -> None:
         json.dump(data, f, indent=2, ensure_ascii=False)
     MANIFEST_DATA = data
     _log("ok", "Manifest bijgewerkt")
+
+
+def reload_manifest() -> None:
+    """Herlaad het manifest van schijf."""
+    global MANIFEST_DATA
+    MANIFEST_DATA = load_manifest()
