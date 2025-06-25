@@ -90,3 +90,23 @@ def run(context: str = "werk") -> None:
         print("\u25C0 Simuleer privé-inhoud voor habit_tracker_module...")
     else:
         print("\u26A0 Onbekende context – toon alles.")
+
+
+def debug_output() -> None:
+    """Print diagnostische informatie over de huidige context."""
+    module_name = os.path.splitext(os.path.basename(__file__))[0]
+    gebruiker = get_user_value("gebruikersnaam")
+    context = get_user_value("active_context")
+    toon = get_manifest_value(
+        f"contextgedrag.gedrag_per_context.{context}.toon"
+    )
+    reflectie = is_user_enabled("reflectie")
+    suggesties = is_allowed_to(
+        "mag_jaro_proactief contextwaarschuwingen geven"
+    )
+    print(f"Module: {module_name}")
+    print(f"Gebruiker: {gebruiker}")
+    print(f"Actieve context: {context}")
+    print(f"Toon van context: {toon}")
+    print(f"Reflectie actief? {reflectie}")
+    print(f"Mag JARO suggesties doen? {suggesties}")
