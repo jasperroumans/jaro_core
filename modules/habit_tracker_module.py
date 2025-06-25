@@ -15,12 +15,26 @@ habit-analyse, feedback op inconsistent gedrag en integratie met
 kalender- of reminderfunctionaliteit.
 """
 
+from core.jaro_manifest import get_manifest_value, is_allowed_to
+from core.user_config import get_user_value, is_user_enabled
 from datetime import datetime
+import os
+import logging
 from typing import Dict
+
+__all__ = []
+
+logger = logging.getLogger(__name__)
+
+MANIFEST_DATA = get_manifest_value("contextual_info") or {}
+VISION = get_manifest_value("jaro_vision") or {}
+USER_PREFERENCES = get_user_value("personal_preferences") or {}
+USER_ACTIVE = is_user_enabled("pc_on") if not os.environ.get("JARO_OVERRIDE") else True
 
 
 def start() -> None:
     """Initialiseer de habit tracker module."""
+    logger.debug("Habit tracker module start() called")
     print("\U0001F4DD Habit tracker module gestart")
 
 
@@ -50,6 +64,7 @@ def log_habit(gewoonte: str, status: str, opmerking: str = "") -> Dict[str, str]
         "opmerking": opmerking,
     }
 
+    logger.debug("Log habit %s status %s", gewoonte, status)
     print(f"{icon} Gewoonte '{gewoonte}' gemarkeerd als {status}")
     if opmerking:
         print(f"\U0001F4DD Opmerking: {opmerking}")
@@ -60,6 +75,12 @@ def log_habit(gewoonte: str, status: str, opmerking: str = "") -> Dict[str, str]
 
 def run(context: str = "werk") -> None:
     """Simuleer habit-tracker-acties afhankelijk van de context."""
+    if not USER_ACTIVE:
+        logger.debug("Gebruiker niet actief; habit tracker wordt niet uitgevoerd")
+        return
+
+    context = context or USER_PREFERENCES.get("active_context", "werk")
+    logger.debug("Habit tracker run() with context: %s", context)
     label = "WERK" if context == "werk" else "PRIVÉ" if context == "privé" else "ONBEKEND"
     print(f"[{label}] Habit Tracker gestart")
 
