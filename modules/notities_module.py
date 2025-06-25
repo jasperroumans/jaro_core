@@ -18,6 +18,8 @@ MANIFEST_DATA = get_manifest_value("contextual_info") or {}
 VISION = get_manifest_value("jaro_vision") or {}
 USER_PREFERENCES = get_user_value("personal_preferences") or {}
 USER_ACTIVE = is_user_enabled("pc_on") if not os.environ.get("JARO_OVERRIDE") else True
+REPO_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+NOTES_DIR = os.path.join(REPO_DIR, "data", "notities")
 
 
 def start() -> None:
@@ -43,6 +45,20 @@ def run(context: str = "werk") -> None:
         print("\u25C0 Simuleer privé-inhoud voor notities_module...")
     else:
         print("\u26A0 Onbekende context – toon alles.")
+
+
+def opslaan_notitie(tekst: str) -> str:
+    """Sla een notitie op in ``NOTES_DIR`` met een timestamp."""
+    os.makedirs(NOTES_DIR, exist_ok=True)
+    timestamp = datetime.utcnow().isoformat().replace(":", "-").split(".")[0]
+    bestand = os.path.join(NOTES_DIR, f"notitie_{timestamp}.txt")
+    with open(bestand, "w", encoding="utf-8") as f:
+        f.write(tekst)
+    rel_pad = os.path.relpath(bestand, REPO_DIR)
+    print(f"\U0001F4DD Notitie opgeslagen: {rel_pad}")
+    if is_allowed_to("mag_jaro_proactief contextwaarschuwingen geven"):
+        print("💡 Wil je dat ik hier een taak van maak?")
+    return bestand
 
 
 def debug_output() -> None:
