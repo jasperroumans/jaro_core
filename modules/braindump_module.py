@@ -1,4 +1,4 @@
-"""Braindump module voor JARO-TOOTH.
+"""Braindump module voor JARO-CORE.
 
 Wordt geactiveerd in de context 'privé'. De functionaliteit is
 gesimuleerd via een simpel opstartbericht.

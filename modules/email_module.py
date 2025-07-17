@@ -1,4 +1,4 @@
-"""Simple email module for JARO-TOOTH.
+"""Simple email module for JARO-CORE.
 
 Provides basic communication hooks that can be imported by ``jaro_link_agent``.
 

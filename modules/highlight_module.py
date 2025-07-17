@@ -1,4 +1,4 @@
-"""Highlight module voor JARO-TOOTH.
+"""Highlight module voor JARO-CORE.
 
 Deze eenvoudige variant drukt enkel een bevestiging bij het starten
 en kan later uitgebreid worden met echte functionaliteit.
