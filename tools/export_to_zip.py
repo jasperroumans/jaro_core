@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create distribution ZIP for jaro_tooth project."""
+"""Create distribution ZIP for jaro_core project."""
 
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ def generate_requirements() -> str:
 
 def main() -> None:
     base = project_root()
-    output_zip = base / 'jaro_tooth_release_v1.zip'
+    output_zip = base / 'jaro_core_release_v1.zip'
 
     with zipfile.ZipFile(output_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for item in ['core', 'modules', 'config', 'interface', 'tests']:

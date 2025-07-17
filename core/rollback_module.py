@@ -1,4 +1,4 @@
-"""Rollback module voor JARO-TOOTH.
+"""Rollback module voor JARO-CORE.
 
 Dit script herstelt een eerdere versie van ``user_config.json`` door een
 back-up uit de map ``backups`` te kiezen. Het kan zowel zelfstandig
