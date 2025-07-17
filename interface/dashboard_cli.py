@@ -1,4 +1,4 @@
-"""Eenvoudige dashboard CLI voor JARO-TOOTH."""
+"""Eenvoudige dashboard CLI voor JARO-CORE."""
 
 from __future__ import annotations
 
@@ -56,7 +56,7 @@ def _show_dashboard() -> tuple[list[dict], dict]:
         time_str = _format_timestamp(entry.get("timestamp", ""))
         last_line = f"[{time_str}] {entry.get('message', '')}"
 
-    print("\U0001F4E1 JARO-TOOTH DASHBOARD")
+    print("\U0001F4E1 JARO-CORE DASHBOARD")
     print(f"Status: {status}")
     print(f"Actieve modules: {len(active)}")
     print(f"Laatste log: {last_line}")
