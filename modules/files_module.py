@@ -1,4 +1,4 @@
-"""Bestandsmodule voor JARO-TOOTH.
+"""Bestandsmodule voor JARO-CORE.
 
 Dit module biedt functionaliteit om bestanden in de datamap te sorteren op basis van hun extensie. De implementatie blijft bewust eenvoudig en uitbreidbaar zodat nieuwe bestandssoorten of acties later kunnen worden toegevoegd.
 

@@ -1,4 +1,4 @@
-"""Simple calendar module for the JARO-TOOTH agent.
+"""Simple calendar module for the JARO-CORE agent.
 
 Provides basic hooks that can be imported by ``jaro_link_agent``.
 
