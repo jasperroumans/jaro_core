@@ -1,74 +1,30 @@
 {
   "memory_name": "jasper_vonk_core",
-  "generated": "2025-07-17T23:37:51.952041Z",
+  "generated": "2025-07-17T23:54:29.534360Z",
   "files": [
     {
       "path": "README.md",
       "memory_path": "README.md"
     },
     {
-      "path": "modules/braindump_module.py",
-      "memory_path": "ai_modules/braindump_module.py"
+      "path": "tools/sync_repo_to_memory.py",
+      "memory_path": "utilities/sync_repo_to_memory.py"
     },
     {
-      "path": "modules/habit_tracker_module.py",
-      "memory_path": "ai_modules/habit_tracker_module.py"
+      "path": "tools/export_to_zip.py",
+      "memory_path": "utilities/export_to_zip.py"
     },
     {
-      "path": "modules/email_module.py",
-      "memory_path": "ai_modules/email_module.py"
-    },
-    {
-      "path": "modules/files_module.py",
-      "memory_path": "ai_modules/files_module.py"
-    },
-    {
-      "path": "modules/notities_module.py",
-      "memory_path": "ai_modules/notities_module.py"
-    },
-    {
-      "path": "modules/calendar_module.py",
-      "memory_path": "ai_modules/calendar_module.py"
-    },
-    {
-      "path": "modules/highlight_module.py",
-      "memory_path": "ai_modules/highlight_module.py"
-    },
-    {
-      "path": "core/activity_log.json",
-      "memory_path": "core_logic/activity_log.json"
-    },
-    {
-      "path": "core/jaro_link_agent.py",
-      "memory_path": "core_logic/jaro_link_agent.py"
-    },
-    {
-      "path": "core/user_config.py",
-      "memory_path": "core_logic/user_config.py"
-    },
-    {
-      "path": "core/jaro_manifest.py",
-      "memory_path": "core_logic/jaro_manifest.py"
-    },
-    {
-      "path": "core/module_router.py",
-      "memory_path": "core_logic/module_router.py"
-    },
-    {
-      "path": "core/user_config.json",
-      "memory_path": "core_logic/user_config.json"
-    },
-    {
-      "path": "core/backup_config.py",
-      "memory_path": "core_logic/backup_config.py"
-    },
-    {
-      "path": "core/rollback_module.py",
-      "memory_path": "core_logic/rollback_module.py"
+      "path": "tools/sync_codex_memory.py",
+      "memory_path": "utilities/sync_codex_memory.py"
     },
     {
       "path": "tests/test_braindump_module.py",
       "memory_path": "test_routines/test_braindump_module.py"
+    },
+    {
+      "path": "tests/simulate_context_behavior.py",
+      "memory_path": "test_routines/simulate_context_behavior.py"
     },
     {
       "path": "tests/agent_test_log.json",
@@ -83,28 +39,12 @@
       "memory_path": "test_routines/test_agent_run.py"
     },
     {
-      "path": "tests/simulate_context_behavior.py",
-      "memory_path": "test_routines/simulate_context_behavior.py"
-    },
-    {
-      "path": "tools/sync_repo_to_memory.py",
-      "memory_path": "utilities/sync_repo_to_memory.py"
-    },
-    {
-      "path": "tools/export_to_zip.py",
-      "memory_path": "utilities/export_to_zip.py"
-    },
-    {
       "path": "interface/dashboard.py",
       "memory_path": "interface_layer/dashboard.py"
     },
     {
       "path": "interface/manifest_debug.py",
       "memory_path": "interface_layer/manifest_debug.py"
-    },
-    {
-      "path": "interface/dashboard_cli.py",
-      "memory_path": "interface_layer/dashboard_cli.py"
     },
     {
       "path": "interface/config_ui.py",
@@ -115,16 +55,56 @@
       "memory_path": "interface_layer/main_console.py"
     },
     {
+      "path": "interface/dashboard_cli.py",
+      "memory_path": "interface_layer/dashboard_cli.py"
+    },
+    {
       "path": "interface/route_debug.py",
       "memory_path": "interface_layer/route_debug.py"
     },
     {
-      "path": "logs/manifest_log.json",
-      "memory_path": "logs/manifest_log.json"
+      "path": "core/jaro_manifest.py",
+      "memory_path": "core_logic/jaro_manifest.py"
+    },
+    {
+      "path": "core/rollback_module.py",
+      "memory_path": "core_logic/rollback_module.py"
+    },
+    {
+      "path": "core/user_config.json",
+      "memory_path": "core_logic/user_config.json"
+    },
+    {
+      "path": "core/user_config.py",
+      "memory_path": "core_logic/user_config.py"
+    },
+    {
+      "path": "core/module_router.py",
+      "memory_path": "core_logic/module_router.py"
+    },
+    {
+      "path": "core/backup_config.py",
+      "memory_path": "core_logic/backup_config.py"
+    },
+    {
+      "path": "core/activity_log.json",
+      "memory_path": "core_logic/activity_log.json"
+    },
+    {
+      "path": "core/jaro_link_agent.py",
+      "memory_path": "core_logic/jaro_link_agent.py"
+    },
+    {
+      "path": "data/log_001.json",
+      "memory_path": "data_storage/log_001.json"
     },
     {
       "path": "logs/user_config_log.json",
       "memory_path": "logs/user_config_log.json"
+    },
+    {
+      "path": "logs/manifest_log.json",
+      "memory_path": "logs/manifest_log.json"
     },
     {
       "path": "config/user_profiles.json",
@@ -139,8 +119,32 @@
       "memory_path": "config_profiles/jaro_visie.json"
     },
     {
-      "path": "data/log_001.json",
-      "memory_path": "data_storage/log_001.json"
+      "path": "modules/notities_module.py",
+      "memory_path": "ai_modules/notities_module.py"
+    },
+    {
+      "path": "modules/braindump_module.py",
+      "memory_path": "ai_modules/braindump_module.py"
+    },
+    {
+      "path": "modules/files_module.py",
+      "memory_path": "ai_modules/files_module.py"
+    },
+    {
+      "path": "modules/email_module.py",
+      "memory_path": "ai_modules/email_module.py"
+    },
+    {
+      "path": "modules/calendar_module.py",
+      "memory_path": "ai_modules/calendar_module.py"
+    },
+    {
+      "path": "modules/habit_tracker_module.py",
+      "memory_path": "ai_modules/habit_tracker_module.py"
+    },
+    {
+      "path": "modules/highlight_module.py",
+      "memory_path": "ai_modules/highlight_module.py"
     }
   ]
 }
