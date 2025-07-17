@@ -1,4 +1,4 @@
-"""Habit tracker module voor de JARO-TOOTH agent.
+"""Habit tracker module voor de JARO-CORE agent.
 
 Dit module legt de basis voor het registreren van gewoontes, het analyseren
 van gedrag en toekomstige integraties met agenda's of herinneringen.

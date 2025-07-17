@@ -1,4 +1,4 @@
-"""Simulatiescript voor het wisselen van contexten in JARO-TOOTH.
+"""Simulatiescript voor het wisselen van contexten in JARO-CORE.
 
 Het script demonstreert de nieuwe CLI-commando's ``switch_context`` en
 ``revert_context`` en toont welke modules per context worden gestart.

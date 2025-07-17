@@ -29,7 +29,7 @@ def print_dashboard() -> None:
     reflectie = "AAN" if data.get("reflectie") else "UIT"
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    print("\U0001F4BB JARO-TOOTH DASHBOARD")
+    print("\U0001F4BB JARO-CORE DASHBOARD")
     print(f"Gebruiker: {gebruiker}")
     print(f"Context: {context}")
     print(f"Toon: {toon}")

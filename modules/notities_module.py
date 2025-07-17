@@ -1,4 +1,4 @@
-"""Notities module voor JARO-TOOTH.
+"""Notities module voor JARO-CORE.
 
 Deze minimale implementatie wordt gebruikt om context switching te
 demonstreren. Bij het starten toont de module enkel een bericht.
