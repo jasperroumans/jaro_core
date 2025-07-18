@@ -1,30 +1,30 @@
-# Setup Instructions
+# Installatie-instructies
 
-These steps help you install **jaro_core** on macOS, Windows and Linux. They also
-cover Codex integration for syncing the project with GPT memory `jasper_vonk_core`.
+Volg deze stappen om **jaro_core** te installeren en te gebruiken. De handleiding werkt op macOS, Windows en Linux.
 
-## Requirements
-- Python 3.11+
-- pip
+## Vereisten
+- ✅ Python 3.9 of hoger
+- ✅ [VSCode](https://code.visualstudio.com/)
+- ✅ pip
 
-## Installation
-1. Clone the repository.
-2. Create a virtual environment and activate it.
-3. Install dependencies:
+## Installatie
+1. 📂 Clone of download deze repository.
+2. Maak een virtuele omgeving aan en activeer deze.
+3. Installeer de dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-4. Copy `.env.template` to `.env` and fill in your credentials.
+4. Kopieer `.env.template` naar `.env` en vul je sleutels in.
 
-## Codex integration
-Run the sync script to push repository contents to GPT memory:
+## Dashboard starten
+Start het dashboard met:
 ```bash
-python tools/sync_codex_memory.py
+python interface/dashboard_cli.py
 ```
 
-This will update the memory store `jasper_vonk_core` with relevant files.
-
-## Platform notes
-- **macOS/Linux**: Use the terminal commands above.
-- **Windows**: Use PowerShell or `cmd` with the same commands. Ensure Python is
-  added to your PATH.
+## Codex synchronisatie
+💡 Synchroniseer de repository naar Codex-geheugen met:
+```bash
+python tools/sync_repo_to_memory.py
+```
+Dit script verstuurt de relevante bestanden naar het geheugenprofiel.
