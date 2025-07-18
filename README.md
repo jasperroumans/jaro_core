@@ -19,3 +19,7 @@ Nieuwe tools zijn toegevoegd voor het beheren van de GPT-geheugenstatus:
 
 - `modules/tracker_recovery_module.py` maakt dagelijkse herstelbestanden in JSON en XLSX.
 - `modules/task_focus_module.py` biedt een CLI voor het bijhouden van focus/blokkades.
+
+## Security overzicht
+
+Een beschrijving van de geactiveerde GitHub-beveiligingsfeatures vind je in [`docs/github_security_overview.md`](docs/github_security_overview.md).
