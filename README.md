@@ -14,6 +14,7 @@ Nieuwe tools zijn toegevoegd voor het beheren van de GPT-geheugenstatus:
 
 - `tools/memory_visualizer.py` genereert een overzicht van de huidige geheugenlog.
 - `tools/memory_feedback_loop.py` schrijft verbeteradviezen weg in `data/log_002.json`.
+- `tools/codeql_integrity_log.py` legt CodeQL scanresultaten wekelijks vast in `data_storage/logs/integriteit/`.
 
 ## Overige modules
 
