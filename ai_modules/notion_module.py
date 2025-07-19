@@ -1,24 +1,18 @@
+"""Module voor interactie met Notion API.
+
+Synchroniseert taken, notities en events met opgegeven Notion database-ID's.
+"""
+
 from __future__ import annotations
 
 import json
 import logging
-import os
 from pathlib import Path
-from typing import List, Dict
+from typing import Dict, List
 
-import requests
-from dotenv import load_dotenv
-
-load_dotenv()
+from ai_modules.helpers import notion_helper
 
 logger = logging.getLogger(__name__)
-
-NOTION_KEY = os.environ.get("NOTION_KEY", "")
-HEADERS = {
-    "Authorization": f"Bearer {NOTION_KEY}",
-    "Notion-Version": "2022-06-28",
-    "Content-Type": "application/json",
-}
 
 LOG_FILE = Path(__file__).resolve().parent.parent / "data" / "log_002.json"
 
@@ -37,25 +31,26 @@ def _append_log(action: str, info: Dict) -> None:
 
 def read_notion_database(database_id: str) -> List[dict]:
     """Return items from a Notion database."""
-    url = f"https://api.notion.com/v1/databases/{database_id}/query"
     logger.debug("Reading Notion database %s", database_id)
-    response = requests.post(url, headers=HEADERS)
-    if response.status_code != 200:
-        logger.error("Failed to read Notion database: %s", response.text)
-        _append_log("read_failed", {"database_id": database_id, "status": response.status_code})
-        return []
-    results = response.json().get("results", [])
+    results = notion_helper.query_database(database_id)
     _append_log("read_database", {"database_id": database_id, "count": len(results)})
     return results
 
 
 def update_notion_page(page_id: str, properties: Dict) -> bool:
     """Update a Notion page with new properties."""
-    url = f"https://api.notion.com/v1/pages/{page_id}"
     logger.debug("Updating Notion page %s", page_id)
-    response = requests.patch(url, headers=HEADERS, json={"properties": properties})
-    success = response.status_code == 200
+    success = notion_helper.update_page(page_id, properties)
     if not success:
-        logger.error("Failed to update Notion page: %s", response.text)
+        logger.error("Failed to update Notion page %s", page_id)
     _append_log("update_page", {"page_id": page_id, "success": success})
     return success
+
+
+def sync_databases(tasks_db: str, notes_db: str, events_db: str) -> Dict[str, List[dict]]:
+    """Synchroniseer taken, notities en events met Notion."""
+    return {
+        "taken": read_notion_database(tasks_db),
+        "notities": read_notion_database(notes_db),
+        "events": read_notion_database(events_db),
+    }
