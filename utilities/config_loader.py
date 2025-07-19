@@ -1,5 +1,10 @@
 import os
 import json
+from dotenv import load_dotenv
+
+
+# Load environment variables from a .env file if present
+load_dotenv()
 
 
 def load_credentials():
@@ -18,3 +23,21 @@ def load_google_credentials():
         raise FileNotFoundError("Google credentials JSON-bestand niet gevonden.")
     with open(path, 'r') as f:
         return json.load(f)
+
+
+def load_notion_config() -> dict:
+    """Laad en valideer Notion configuratie uit omgevingsvariabelen."""
+    notion_key = os.getenv("NOTION_KEY")
+    if not notion_key:
+        raise EnvironmentError("NOTION_KEY ontbreekt in .env of omgeving")
+
+    database_ids = {
+        key: value
+        for key, value in os.environ.items()
+        if key.startswith("NOTION_DATABASE_ID") and value
+    }
+
+    return {
+        "notion_key": notion_key,
+        "database_ids": database_ids,
+    }
