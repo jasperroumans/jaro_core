@@ -10,9 +10,9 @@ from subprocess import run, PIPE
 
 # Optional Gmail notification
 try:
-    from modules.email.gmail_client import GmailClient
+    from core.gmail_client import send_security_alert
 except Exception:  # pragma: no cover - optional dependency
-    GmailClient = None
+    send_security_alert = None
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 LOG_FILE = ROOT_DIR / "logs" / "security_log.json"
@@ -54,16 +54,14 @@ def _append_log(entry: dict) -> None:
 
 
 def _notify_via_email() -> None:
-    if not GmailClient:
+    if not send_security_alert:
         return
     try:
-        gmail = GmailClient()
-        if gmail.service:
-            gmail.send_email(
-                to="me",
-                subject="Beveiligingsincident gedetecteerd",
-                body="Beveiligingsincident gedetecteerd – zie logs/security_log.json",
-            )
+        send_security_alert(
+            subject="\U0001F6A8 Git Secret Detectie",
+            message="Beveiligingsincident gedetecteerd – zie bijlage.",
+            attachment_path=str(LOG_FILE),
+        )
     except Exception as exc:  # pragma: no cover - best effort
         print(f"E-mailmelding mislukt: {exc}")
 
