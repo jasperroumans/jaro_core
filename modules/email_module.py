@@ -18,8 +18,17 @@ from core.user_config import get_user_value, is_user_enabled
 from datetime import datetime
 import os
 import logging
+from typing import Iterable, Optional
 
-__all__ = []
+from ai_modules import gmail_module
+
+__all__ = [
+    "start",
+    "send_email",
+    "send_email_oauth",
+    "run",
+    "debug_output",
+]
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +59,36 @@ def send_email(ontvanger: str, onderwerp: str, bericht: str) -> None:
     logger.debug("send_email called to %s with subject %s", ontvanger, onderwerp)
     print(f"\u2709\ufe0f Simulatie: E-mail verzonden naar {ontvanger} met onderwerp: '{onderwerp}'")
     print(f"Inhoud:\n{bericht}")
+
+
+def send_email_oauth(
+    to: str,
+    subject: str,
+    body: str,
+    scopes: Optional[Iterable[str]] | None = None,
+) -> dict:
+    """Send an email via the Gmail API using OAuth2 credentials.
+
+    Parameters
+    ----------
+    to : str
+        Recipient email address.
+    subject : str
+        Email subject line.
+    body : str
+        Body of the email.
+    scopes : Iterable[str], optional
+        OAuth scopes to request. Currently unused but accepted for
+        future compatibility.
+
+    Returns
+    -------
+    dict
+        API response from Gmail.
+    """
+
+    logger.debug("send_email_oauth called to %s with subject %s", to, subject)
+    return gmail_module.send_email(to, subject, body)
 
 
 def run(context: str = "werk") -> None:
