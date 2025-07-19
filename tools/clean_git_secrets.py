@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
 from subprocess import run, PIPE
@@ -66,7 +67,7 @@ def _notify_via_email() -> None:
         print(f"E-mailmelding mislukt: {exc}")
 
 
-def scan_repository() -> None:
+def scan_repository() -> bool:
     staged = _get_staged_files()
     found = []
     for pattern in PATTERNS:
@@ -106,9 +107,14 @@ def scan_repository() -> None:
     else:
         print("Geen verdachte bestanden gevonden.")
 
+    return bool(detections)
+
 
 def main() -> None:
-    scan_repository()
+    found = scan_repository()
+    if found:
+        sys.exit(1)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
