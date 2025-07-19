@@ -1,0 +1,15 @@
+{
+  "modules": {
+    "security_module": {
+      "path": "ai_modules/security_module.py",
+      "status": "actief",
+      "tags": ["security", "monitoring", "github", "codeql", "logging"],
+      "linked_files": [
+        "SECURITY.md",
+        "security_overview.md",
+        ".github/workflows/codeql.yml"
+      ]
+    }
+  }
+}
+
