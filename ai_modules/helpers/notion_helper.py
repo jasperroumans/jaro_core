@@ -59,3 +59,12 @@ def get_page(page_id: str) -> Optional[dict]:
         logger.error("Failed to fetch page: %s", resp.text)
         return None
     return resp.json()
+
+
+def fetch_all_tasks() -> List[dict]:
+    """Fetch all tasks from the configured Notion tasks database."""
+    database_id = os.environ.get("NOTION_DATABASE_ID_TASKS", "")
+    if not database_id:
+        logger.warning("NOTION_DATABASE_ID_TASKS not set")
+        return []
+    return query_database(database_id)
